@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { CheckCircle, Info, Phone, Award, FileText, Facebook, Mail } from 'lucide-react';
+import { CheckCircle, Info, Phone, Award, FileText, Facebook, Mail, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const VotingTeam = () => {
@@ -160,7 +160,7 @@ const VotingTeam = () => {
                   <div className="aspect-w-16 aspect-h-9">
                     <iframe 
                       className="w-full h-64 rounded-lg"
-                      src="https://youtu.be/EIl1HvAkO3I" 
+                      src="https://www.youtube.com/embed/EIl1HvAkO3I" 
                       title="How to Vote for Cali"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                       allowFullScreen
@@ -337,6 +337,27 @@ const VotingTeam = () => {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+        
+        {/* Voting Team Member Dashboard */}
+        <div className="max-w-4xl mx-auto mt-16 bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+          <div className="p-8">
+            <h2 className="text-2xl font-bold mb-4 text-center">Voting Team Member Dashboard</h2>
+            <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
+              Access the dedicated dashboard for team members to track voting progress, collaborate on strategies, and view important updates.
+            </p>
+            <div className="flex justify-center">
+              <a 
+                href="https://vote.btncaliofficial.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-btn hover:bg-btn/90 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors"
+              >
+                <span>Access Team Dashboard</span>
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
