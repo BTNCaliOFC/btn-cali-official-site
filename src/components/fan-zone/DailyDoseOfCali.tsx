@@ -7,27 +7,32 @@ const days = [
   {
     name: "Motivation Monday",
     icon: <Calendar className="h-5 w-5 text-blue-500" />,
-    description: "Inspiring quotes, messages, or throwback moments from Cali."
+    description: "Inspiring quotes, messages, or throwback moments from Cali.",
+    image: "/lovable-uploads/62163c2f-d019-42bf-b0df-f6aac517b869.png"
   },
   {
     name: "TMI Tuesday",
     icon: <Info className="h-5 w-5 text-indigo-500" />,
-    description: "Fun facts and behind-the-scenes trivia about Cali."
+    description: "Fun facts and behind-the-scenes trivia about Cali.",
+    image: "/lovable-uploads/1ad97c1c-1284-471d-ac42-8d385fd33eb0.png"
   },
   {
     name: "Winning Wednesday",
     icon: <Award className="h-5 w-5 text-violet-500" />,
-    description: "Competitions, fan challenges, or fandom achievements."
+    description: "Competitions, fan challenges, or fandom achievements.",
+    image: "/lovable-uploads/f3a97b9f-ea2e-4a78-8460-4351a0193daf.png"
   },
   {
     name: "Throwback Thursday",
     icon: <Clock className="h-5 w-5 text-purple-500" />,
-    description: "Memorable moments from Cali's journey so far."
+    description: "Memorable moments from Cali's journey so far.",
+    image: "/lovable-uploads/9e521c6b-08f4-41b3-9e1f-07cb7318a2aa.png"
   },
   {
     name: "Fan Feature Friday",
     icon: <Users className="h-5 w-5 text-pink-500" />,
-    description: "Shoutouts to active fans, top voters, and special contributors."
+    description: "Shoutouts to active fans, top voters, and special contributors.",
+    image: "/lovable-uploads/07498ba1-0839-44cd-bc9c-6e87b76403ce.png"
   },
   {
     name: "Spotlight Saturday",
@@ -83,10 +88,20 @@ const DailyDoseOfCali = () => {
             {days[selectedDay].icon}
             {days[selectedDay].name}
           </h3>
-          <p className="text-gray-700 dark:text-gray-300">{days[selectedDay].description}</p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">{days[selectedDay].description}</p>
           
-          <div className="mt-6 bg-white dark:bg-gray-700 p-4 rounded-lg border shadow-sm">
-            <p className="text-sm text-gray-500 dark:text-gray-400 italic">Today's {days[selectedDay].name} content will appear here. Stay tuned for daily updates!</p>
+          <div className="mt-4 bg-white dark:bg-gray-700 p-4 rounded-lg border shadow-sm">
+            {days[selectedDay].image ? (
+              <div className="flex justify-center">
+                <img 
+                  src={days[selectedDay].image} 
+                  alt={days[selectedDay].name}
+                  className="max-w-full rounded-lg shadow-sm" 
+                />
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500 dark:text-gray-400 italic">Today's {days[selectedDay].name} content will appear here. Stay tuned for daily updates!</p>
+            )}
           </div>
         </div>
       </CardContent>
