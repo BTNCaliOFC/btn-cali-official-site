@@ -10,3 +10,63 @@ const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 // import { supabase } from "@/integrations/supabase/client";
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+// Newsletter subscription function
+export async function subscribeToNewsletter(email: string) {
+  try {
+    const { data, error } = await supabase
+      .from('newsletter_subscribers')
+      .insert([{ email, subscribed_at: new Date().toISOString() }]);
+    
+    if (error) throw error;
+    return { success: true, data };
+  } catch (error) {
+    console.error('Error subscribing to newsletter:', error);
+    return { success: false, error };
+  }
+}
+
+// Fan interactions functions (for comments, stories, fan art)
+export async function postFanComment(userId: string | null, content: string, type: 'forum' | 'story' | 'fanart', parentId?: string) {
+  try {
+    const { data, error } = await supabase
+      .from('fan_interactions')
+      .insert([{ 
+        user_id: userId || 'anonymous', 
+        content, 
+        type,
+        parent_id: parentId,
+        created_at: new Date().toISOString() 
+      }]);
+    
+    if (error) throw error;
+    return { success: true, data };
+  } catch (error) {
+    console.error('Error posting fan interaction:', error);
+    return { success: false, error };
+  }
+}
+
+export async function getFanInteractions(type: 'forum' | 'story' | 'fanart', parentId?: string) {
+  try {
+    let query = supabase
+      .from('fan_interactions')
+      .select('*')
+      .eq('type', type)
+      .order('created_at', { ascending: false });
+    
+    if (parentId) {
+      query = query.eq('parent_id', parentId);
+    } else {
+      query = query.is('parent_id', null);
+    }
+    
+    const { data, error } = await query;
+    
+    if (error) throw error;
+    return { success: true, data };
+  } catch (error) {
+    console.error('Error fetching fan interactions:', error);
+    return { success: false, error: error };
+  }
+}

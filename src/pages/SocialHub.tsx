@@ -140,13 +140,14 @@ const SocialHub = () => {
                   </a>
                 </div>
                 
-                <div className="relative overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 p-3">
+                <div className="relative overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 p-3 aspect-w-1 aspect-h-1 max-h-[600px]">
                   <iframe
                     src="https://www.instagram.com/btncaliofficial/embed"
                     className="w-full h-[600px] border-0"
                     allowFullScreen
                     scrolling="no"
                     title="Instagram Feed"
+                    style={{ maxHeight: '600px', overflow: 'hidden' }}
                   ></iframe>
                 </div>
               </div>
@@ -168,15 +169,18 @@ const SocialHub = () => {
                   </a>
                 </div>
                 
-                <div className="relative overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900">
-                  <a 
-                    className="twitter-timeline" 
-                    data-height="600" 
-                    href="https://twitter.com/btncaliofficial?ref_src=twsrc%5Etfw"
-                  >
-                    Tweets by @btncaliofficial
-                  </a>
-                  <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+                <div className="relative overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 flex justify-center">
+                  <div style={{ width: '100%', maxWidth: '550px' }}>
+                    <a 
+                      className="twitter-timeline" 
+                      data-height="600" 
+                      data-theme={document.documentElement.classList.contains('dark') ? 'dark' : 'light'}
+                      href="https://twitter.com/btncaliofficial?ref_src=twsrc%5Etfw"
+                    >
+                      Tweets by @btncaliofficial
+                    </a>
+                    <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+                  </div>
                 </div>
               </div>
             )}
@@ -197,17 +201,18 @@ const SocialHub = () => {
                   </a>
                 </div>
                 
-                <div className="relative overflow-hidden rounded-lg">
+                <div className="relative flex justify-center overflow-hidden rounded-lg">
                   <iframe 
                     src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBTNCaliOfficial&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
-                    width="100%" 
+                    width="500" 
                     height="600" 
-                    style={{ border: 'none', overflow: 'hidden' }} 
+                    style={{ border: 'none', overflow: 'hidden', maxWidth: '100%' }} 
                     scrolling="no" 
                     frameBorder="0" 
                     allowFullScreen={true} 
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     title="Facebook Feed"
+                    className="mx-auto"
                   ></iframe>
                 </div>
               </div>
@@ -229,7 +234,7 @@ const SocialHub = () => {
                   </a>
                 </div>
                 
-                <div>
+                <div className="aspect-w-16 aspect-h-9 mb-6">
                   <iframe 
                     width="100%" 
                     height="400" 

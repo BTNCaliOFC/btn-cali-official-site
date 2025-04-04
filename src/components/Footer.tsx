@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { SocialLinks } from "@/components/SocialLinks";
@@ -88,9 +87,12 @@ export function Footer() {
             </div>
           </div>
           
-          <div className="text-center text-sm text-muted-foreground">
+          <div className="text-center text-sm text-muted-foreground max-w-lg">
             <p className="flex items-center justify-center gap-1">
               Made with <Heart className="h-4 w-4 text-red-500" /> for Cali and all DreamKeepers
+            </p>
+            <p className="mt-1">
+              A dedicated fandom supporting Cali from Be The Next: 9 Dreamers. Join us in his journey to debut!
             </p>
             <p className="mt-1">
               &copy; {currentYear} BTN Cali Official. All rights reserved.

@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { CheckCircle, Info, Phone, Award, FileText, Facebook, Mail, ExternalLink } from 'lucide-react';
+import { CheckCircle, Info, Phone, Award, FileText, Facebook, Mail, ExternalLink, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const VotingTeam = () => {
@@ -109,6 +108,29 @@ const VotingTeam = () => {
                       <CheckCircle className="text-green-600 dark:text-green-400 w-5 h-5" />
                     </div>
                     <div>
+                      <h4 className="font-semibold text-lg">Vote on the Website</h4>
+                      <p className="text-gray-600 dark:text-gray-300 mb-2">
+                        You can also vote on the official B.Stage website.
+                      </p>
+                      <div className="flex flex-wrap gap-4 mt-2">
+                        <a 
+                          href="https://bethenext.bstage.in/" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+                        >
+                          <Globe className="w-5 h-5" />
+                          Vote on Website
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-full flex-shrink-0">
+                      <CheckCircle className="text-green-600 dark:text-green-400 w-5 h-5" />
+                    </div>
+                    <div>
                       <h4 className="font-semibold text-lg">Create an Account</h4>
                       <p className="text-gray-600 dark:text-gray-300">
                         Sign up for an account using your email address. Verify your account through the verification code sent to you.
@@ -160,7 +182,7 @@ const VotingTeam = () => {
                   <div className="aspect-w-16 aspect-h-9">
                     <iframe 
                       className="w-full h-64 rounded-lg"
-                      src="https://www.youtube.com/embed/EIl1HvAkO3I" 
+                      src="https://www.youtube.com/embed/EIl1HvAkO3I?si=fb1y9C3mY0wf-Z0c" 
                       title="How to Vote for Cali"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                       allowFullScreen
@@ -273,7 +295,7 @@ const VotingTeam = () => {
                     rel="noopener noreferrer"
                   >
                     <div className="bg-[#1877F2] text-white p-3 rounded-full">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C6.36 2 2 6.13 2 11.7C2 14.61 3.33 17.13 5.47 18.73C5.65 18.88 5.75 19.11 5.73 19.35L5.58 21.14C5.53 21.7 6.09 22.15 6.64 21.97L8.57 21.23C8.76 21.16 8.96 21.16 9.15 21.22C10.07 21.55 11.04 21.73 12.04 21.73C17.68 21.73 22.04 17.6 22.04 12.03C22.04 6.43 17.67 2 12 2ZM17.63 9.4L14.8 13.93C14.59 14.27 14.16 14.4 13.79 14.25L11.74 13.46C11.57 13.39 11.37 13.39 11.2 13.45L8.23 14.94C7.85 15.13 7.45 14.73 7.63 14.35L10.45 9.82C10.67 9.48 11.09 9.35 11.46 9.5L13.52 10.29C13.69 10.36 13.88 10.35 14.05 10.29L17.03 8.8C17.41 8.62 17.81 9.02 17.63 9.4Z" fill="currentColor"/>
                       </svg>
                     </div>
@@ -340,7 +362,6 @@ const VotingTeam = () => {
           </div>
         </div>
         
-        {/* Voting Team Member Dashboard */}
         <div className="max-w-4xl mx-auto mt-16 bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
           <div className="p-8">
             <h2 className="text-2xl font-bold mb-4 text-center">Voting Team Member Dashboard</h2>

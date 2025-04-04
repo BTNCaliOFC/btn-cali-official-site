@@ -1,5 +1,5 @@
 
-import { Heart, Calendar, Users, MessageCircle, Video } from 'lucide-react';
+import { Heart, Calendar, Users, MessageCircle, Video, Award } from 'lucide-react';
 
 const Features = () => {
   const featureItems = [
@@ -27,6 +27,11 @@ const Features = () => {
       icon: <Video className="w-12 h-12 text-btn" />,
       title: "Exclusive Content",
       description: "Access fan edits, highlights, and special content featuring Cali."
+    },
+    {
+      icon: <Award className="w-12 h-12 text-yellow-500" />,
+      title: "Fun Challenges & Rewards",
+      description: "Participate in fandom activities, earn points, and win exclusive prizes for your engagement and support."
     }
   ];
   

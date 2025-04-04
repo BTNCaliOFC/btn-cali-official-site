@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Youtube, Send } from 'lucide-react';
 
@@ -13,7 +14,7 @@ const Footer = () => {
           <div className="flex flex-col">
             <h3 className="text-xl font-bold mb-4">BTN Cali Official</h3>
             <p className="text-gray-300 mb-4">
-              The dedicated fandom supporting Cali from Be The Next Dreamer. Join us in his journey to success!
+              A dedicated fandom supporting Cali from Be The Next: 9 Dreamers. Join us in his journey to debut!
             </p>
             <div className="flex space-x-4 mt-2">
               <a 
