@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
-import { Calendar, Info, Award, Clock, Users, Star, PieChart } from "lucide-react";
+import { Calendar, Info, Award, Clock, Users, Star, Mail } from "lucide-react";
 
 const days = [
   {
@@ -35,9 +35,9 @@ const days = [
     description: "A highlight of Cali's best performances or achievements."
   },
   {
-    name: "Sunday Funday",
-    icon: <PieChart className="h-5 w-5 text-yellow-500" />,
-    description: "Fun polls, quizzes, or interactive activities."
+    name: "Sunday Inbox",
+    icon: <Mail className="h-5 w-5 text-yellow-500" />,
+    description: "Send messages, letters, or questions for Cali, and the best ones get featured!"
   }
 ];
 

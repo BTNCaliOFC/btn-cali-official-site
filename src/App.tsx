@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import VotingTeam from "./pages/VotingTeam";
@@ -50,6 +51,7 @@ const App = () => (
               </Routes>
             </main>
             <Footer />
+            <ScrollToTop />
           </div>
         ) : (
           <Routes>
