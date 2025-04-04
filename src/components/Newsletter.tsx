@@ -3,25 +3,38 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { subscribeToNewsletter } from "@/integrations/supabase/client";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const result = await subscribeToNewsletter(email);
+      
+      if (result.success) {
+        toast({
+          title: "Subscription successful!",
+          description: "Thank you for subscribing to BTN Cali updates.",
+        });
+        setEmail("");
+      } else {
+        throw new Error("Failed to subscribe");
+      }
+    } catch (error) {
       toast({
-        title: "Subscription successful!",
-        description: "Thank you for subscribing to BTN Cali updates.",
+        title: "Subscription failed",
+        description: "There was an error processing your subscription. Please try again.",
+        variant: "destructive"
       });
-      setEmail("");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (

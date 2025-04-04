@@ -14,6 +14,7 @@ interface FanInteractionProps {
   description?: string;
 }
 
+// Define a proper interface that matches the fan_interactions table structure
 interface Interaction {
   id: string;
   content: string;
@@ -34,7 +35,8 @@ const FanInteractionDisplay = ({ type, title, description }: FanInteractionProps
     try {
       const result = await getFanInteractions(type);
       if (result.success && result.data) {
-        setInteractions(result.data);
+        // Use type assertion to handle the Supabase type mismatch
+        setInteractions(result.data as unknown as Interaction[]);
       }
     } catch (error) {
       toast({
