@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FanInteractionDisplay from '@/components/fan-zone/FanInteractionDisplay';
+import DailyDoseOfCali from '@/components/fan-zone/DailyDoseOfCali';
+import DreamKeepersLeaderboard from '@/components/fan-zone/DreamKeepersLeaderboard';
 
 const FanZone = () => {
   return (
@@ -11,6 +13,11 @@ const FanZone = () => {
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
           Join the BTN Cali community! Share your thoughts, fan stories, and artwork to connect with fellow supporters.
         </p>
+        
+        <div className="max-w-4xl mx-auto mb-12">
+          <DailyDoseOfCali />
+          <DreamKeepersLeaderboard />
+        </div>
         
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="forum" className="w-full">
