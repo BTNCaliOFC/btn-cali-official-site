@@ -7,7 +7,8 @@ const days = [
     name: "Motivation Monday",
     icon: <Calendar className="h-5 w-5 text-blue-500" />,
     description: "Inspiring quotes, messages, or throwback moments from Cali.",
-    image: "/lovable-uploads/62163c2f-d019-42bf-b0df-f6aac517b869.png"
+    type: "video",
+    content: "dQw4w9WgXcQ"
   },
   {
     name: "TMI Tuesday",
@@ -92,16 +93,30 @@ const DailyDoseOfCali = () => {
           <p className="text-gray-700 dark:text-gray-300 mb-4">{days[selectedDay].description}</p>
           
           <div className="mt-4 bg-white dark:bg-gray-700 p-4 rounded-lg border shadow-sm">
-            {days[selectedDay].image ? (
+            {days[selectedDay].content ? (
               <div className="flex justify-center">
-                <img 
-                  src={days[selectedDay].image} 
-                  alt={days[selectedDay].name}
-                  className="max-w-full rounded-lg shadow-sm" 
-                />
+                {days[selectedDay].type === "video" ? (
+                  <div className="w-full aspect-video">
+                    <iframe 
+                      src={`https://www.youtube.com/embed/${days[selectedDay].content}`}
+                      title={days[selectedDay].name}
+                      className="w-full h-full rounded-lg"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <img 
+                    src={days[selectedDay].content} 
+                    alt={days[selectedDay].name}
+                    className="max-w-full rounded-lg shadow-sm" 
+                  />
+                )}
               </div>
             ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400 italic">Today's {days[selectedDay].name} content will appear here. Stay tuned for daily updates!</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                Today's {days[selectedDay].name} content will appear here. Stay tuned for daily updates!
+              </p>
             )}
           </div>
         </div>
