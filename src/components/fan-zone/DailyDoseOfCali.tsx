@@ -1,109 +1,110 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState } from "react";
-import { Calendar, Info, Award, Clock, Users, Star, Mail } from "lucide-react";
-
-const days = [
-  {
-    name: "Motivation Monday",
-    icon: <Calendar className="h-5 w-5 text-blue-500" />,
-    description: "Inspiring quotes, messages, or throwback moments from Cali.",
-    image: "/lovable-uploads/62163c2f-d019-42bf-b0df-f6aac517b869.png"
-  },
-  {
-    name: "TMI Tuesday",
-    icon: <Info className="h-5 w-5 text-indigo-500" />,
-    description: "Fun facts and behind-the-scenes trivia about Cali.",
-    image: "/lovable-uploads/1ad97c1c-1284-471d-ac42-8d385fd33eb0.png"
-  },
-  {
-    name: "Winning Wednesday",
-    icon: <Award className="h-5 w-5 text-violet-500" />,
-    description: "Competitions, fan challenges, or fandom achievements.",
-    image: "/lovable-uploads/f3a97b9f-ea2e-4a78-8460-4351a0193daf.png"
-  },
-  {
-    name: "Throwback Thursday",
-    icon: <Clock className="h-5 w-5 text-purple-500" />,
-    description: "Memorable moments from Cali's journey so far.",
-    image: "/lovable-uploads/9e521c6b-08f4-41b3-9e1f-07cb7318a2aa.png"
-  },
-  {
-    name: "Fan Feature Friday",
-    icon: <Users className="h-5 w-5 text-pink-500" />,
-    description: "Shoutouts to active fans, top voters, and special contributors.",
-    image: "/lovable-uploads/07498ba1-0839-44cd-bc9c-6e87b76403ce.png"
-  },
-  {
-    name: "Spotlight Saturday",
-    icon: <Star className="h-5 w-5 text-orange-500" />,
-    description: "A highlight of Cali's best performances or achievements."
-  },
-  {
-    name: "Sunday Inbox",
-    icon: <Mail className="h-5 w-5 text-yellow-500" />,
-    description: "Send messages, letters, or questions for Cali, and the best ones get featured!"
-  }
-];
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from "react";
 
 const DailyDoseOfCali = () => {
-  // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
-  const today = new Date().getDay();
-  // Convert to our array index (where Monday is 0)
-  const dayIndex = today === 0 ? 6 : today - 1;
+  const [currentDay, setCurrentDay] = useState<string>("");
   
-  const [selectedDay, setSelectedDay] = useState(dayIndex);
+  useEffect(() => {
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const today = new Date().getDay();
+    setCurrentDay(days[today]);
+  }, []);
   
   return (
-    <Card className="mb-8 shadow-md hover:shadow-lg transition-shadow duration-300">
-      <CardHeader className="pb-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-t-lg">
-        <CardTitle className="text-2xl font-bold flex items-center gap-2">
-          Daily Dose of Cali 💙
-        </CardTitle>
-        <p className="text-sm opacity-90">
-          A dedicated section featuring themed daily content to keep fans engaged and excited
-        </p>
+    <Card className="mb-12 bg-gradient-to-br from-btn/5 to-accent/5 overflow-hidden">
+      <CardHeader className="border-b">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-xl">Daily Dose of Cali</CardTitle>
+          <Badge variant="outline" className="text-xs font-normal">
+            {currentDay || "Loading..."}
+          </Badge>
+        </div>
+        <CardDescription>Your daily content from BTN Cali</CardDescription>
       </CardHeader>
-      <CardContent className="pt-6">
-        <div className="grid grid-cols-7 gap-1 mb-6 border-b pb-4">
-          {days.map((day, index) => (
-            <button
-              key={day.name}
-              onClick={() => setSelectedDay(index)}
-              className={`text-xs sm:text-sm p-2 rounded-md flex flex-col items-center justify-center transition-colors ${
-                selectedDay === index
-                  ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 font-medium"
-                  : "hover:bg-gray-100 dark:hover:bg-gray-800"
-              }`}
-            >
-              {day.icon}
-              <span className="mt-1 hidden sm:block">{day.name.split(" ")[0]}</span>
-              <span className="mt-1 block sm:hidden">{day.name.split(" ")[0].substring(0, 3)}</span>
-            </button>
-          ))}
-        </div>
-        
-        <div className="p-4 border rounded-lg bg-blue-50 dark:bg-gray-800">
-          <h3 className="text-xl font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
-            {days[selectedDay].icon}
-            {days[selectedDay].name}
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300 mb-4">{days[selectedDay].description}</p>
-          
-          <div className="mt-4 bg-white dark:bg-gray-700 p-4 rounded-lg border shadow-sm">
-            {days[selectedDay].image ? (
-              <div className="flex justify-center">
-                <img 
-                  src={days[selectedDay].image} 
-                  alt={days[selectedDay].name}
-                  className="max-w-full rounded-lg shadow-sm" 
-                />
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400 italic">Today's {days[selectedDay].name} content will appear here. Stay tuned for daily updates!</p>
-            )}
+      <CardContent className="p-6">
+        {currentDay === "Monday" && (
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Monday Message</h3>
+            <img 
+              src="/lovable-uploads/af469866-bff3-43f6-b8a7-3f12f7abe251.png"
+              alt="Monday Message"
+              className="w-full rounded-md"
+            />
           </div>
-        </div>
+        )}
+        
+        {currentDay === "Tuesday" && (
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Talent Tuesday</h3>
+            <img 
+              src="/lovable-uploads/a264f580-bd07-4d39-8c61-6ed647b1d290.png"
+              alt="Talent Tuesday"
+              className="w-full rounded-md"
+            />
+          </div>
+        )}
+        
+        {currentDay === "Wednesday" && (
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Wisdom Wednesday</h3>
+            <img 
+              src="/lovable-uploads/1ad97c1c-1284-471d-ac42-8d385fd33eb0.png"
+              alt="Wisdom Wednesday"
+              className="w-full rounded-md"
+            />
+          </div>
+        )}
+        
+        {currentDay === "Thursday" && (
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Throwback Thursday</h3>
+            <img 
+              src="/lovable-uploads/f3a97b9f-ea2e-4a78-8460-4351a0193daf.png"
+              alt="Throwback Thursday"
+              className="w-full rounded-md"
+            />
+          </div>
+        )}
+        
+        {currentDay === "Friday" && (
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Fun Friday</h3>
+            <img 
+              src="/lovable-uploads/07498ba1-0839-44cd-bc9c-6e87b76403ce.png"
+              alt="Fun Friday"
+              className="w-full rounded-md"
+            />
+          </div>
+        )}
+        
+        {currentDay === "Saturday" && (
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Spotlight Saturday</h3>
+            <div className="aspect-video bg-gray-100 dark:bg-gray-800 relative rounded-md overflow-hidden">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/cwvlrPUnI9I" 
+                title="this is how it feels like to be an enhypen album collector"
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full"
+              ></iframe>
+            </div>
+            <p className="text-sm text-muted-foreground">this is how it feels like to be an enhypen album collector</p>
+          </div>
+        )}
+        
+        {currentDay === "Sunday" && (
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Sunday Inbox</h3>
+            <p>Check back for messages and updates from Cali</p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

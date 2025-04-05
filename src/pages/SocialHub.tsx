@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Instagram, 
   Facebook, 
@@ -15,6 +15,27 @@ import {
 
 const SocialHub = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [theme, setTheme] = useState('light');
+  
+  useEffect(() => {
+    // Check if document has dark class for theme detection
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    setTheme(isDarkMode ? 'dark' : 'light');
+    
+    // Setup a mutation observer to watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const isDarkMode = document.documentElement.classList.contains('dark');
+          setTheme(isDarkMode ? 'dark' : 'light');
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, { attributes: true });
+    
+    return () => observer.disconnect();
+  }, []);
   
   const tabs = [
     { label: 'Instagram', icon: <Instagram className="w-5 h-5" /> },
@@ -171,16 +192,44 @@ const SocialHub = () => {
                 </div>
                 
                 <div className="relative overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 flex justify-center">
-                  <div style={{ width: '100%', maxWidth: '550px' }}>
-                    <a 
-                      className="twitter-timeline" 
-                      data-height="600" 
-                      data-theme={document.documentElement.classList.contains('dark') ? 'dark' : 'light'}
-                      href="https://twitter.com/btncaliofficial?ref_src=twsrc%5Etfw"
-                    >
-                      Tweets by @btncaliofficial
-                    </a>
-                    <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+                  <div style={{ width: '100%', maxWidth: '550px' }} id="twitter-timeline-container">
+                    {/* This will ensure the timeline is reloaded when the theme changes */}
+                    <div key={`twitter-${theme}`}>
+                      <a 
+                        className="twitter-timeline" 
+                        data-height="600" 
+                        data-theme={theme}
+                        href="https://twitter.com/btncaliofficial"
+                        data-chrome="noheader nofooter noborders"
+                      >
+                        Tweets by @btncaliofficial
+                      </a>
+                    </div>
+                    
+                    {/* Load Twitter widget script */}
+                    <script 
+                      key={`twitter-script-${theme}`}
+                      dangerouslySetInnerHTML={{
+                        __html: `
+                          window.twttr = (function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0],
+                              t = window.twttr || {};
+                            if (d.getElementById(id)) return t;
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = "https://platform.twitter.com/widgets.js";
+                            fjs.parentNode.insertBefore(js, fjs);
+                          
+                            t._e = [];
+                            t.ready = function(f) {
+                              t._e.push(f);
+                            };
+                          
+                            return t;
+                          }(document, "script", "twitter-wjs"));
+                        `
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -239,7 +288,7 @@ const SocialHub = () => {
                   <iframe 
                     width="100%" 
                     height="400" 
-                    src="https://www.youtube.com/embed?listType=user_uploads&list=BTNCaliOfficial" 
+                    src="https://www.youtube.com/embed/videoseries?list=UUceqlb3YAuu0I9Iff_5Z9WQ" 
                     title="YouTube Videos" 
                     frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -255,15 +304,15 @@ const SocialHub = () => {
                       <iframe 
                         width="100%" 
                         height="200" 
-                        src="https://www.youtube.com/embed/EIl1HvAkO3I" 
-                        title="How to Vote for Cali" 
+                        src="https://www.youtube.com/embed/smcLDR8Tfes" 
+                        title="Be The Next 9 Dreamers Cali Highlights | Episode 18" 
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowFullScreen
                         className="rounded-t-lg"
                       ></iframe>
                       <div className="p-4">
-                        <h5 className="font-medium mb-1">How to Vote for Cali</h5>
+                        <h5 className="font-medium mb-1">Be The Next 9 Dreamers Cali Highlights | Episode 18</h5>
                         <p className="text-gray-500 dark:text-gray-400 text-sm">BTN Cali Official</p>
                       </div>
                     </div>
@@ -272,15 +321,15 @@ const SocialHub = () => {
                       <iframe 
                         width="100%" 
                         height="200" 
-                        src="https://www.youtube.com/embed/smcLDR8Tfes" 
-                        title="Cali's Episode 16 Performance" 
+                        src="https://www.youtube.com/embed/SinQ2oem8xo" 
+                        title="Be The Next 9 Dreamers Cali Highlights | Episode 17" 
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowFullScreen
                         className="rounded-t-lg"
                       ></iframe>
                       <div className="p-4">
-                        <h5 className="font-medium mb-1">Cali's Episode 16 Performance</h5>
+                        <h5 className="font-medium mb-1">Be The Next 9 Dreamers Cali Highlights | Episode 17</h5>
                         <p className="text-gray-500 dark:text-gray-400 text-sm">BTN Cali Official</p>
                       </div>
                     </div>
