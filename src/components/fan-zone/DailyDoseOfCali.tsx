@@ -8,7 +8,7 @@ const days = [
     icon: <Calendar className="h-5 w-5 text-blue-500" />,
     description: "Inspiring quotes, messages, or throwback moments from Cali.",
     type: "video",
-    content: "dQw4w9WgXcQ"
+    content: "dQw4w9WgXcQ"  // This is the video ID from the YouTube URL
   },
   {
     name: "TMI Tuesday",
