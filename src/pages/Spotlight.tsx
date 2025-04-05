@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Youtube, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,42 +6,42 @@ import { Card, CardContent } from "@/components/ui/card";
 const highlightsVideos = [
   {
     id: "smcLDR8Tfes",
-    title: "Be The Next 9 Dreamers Cali Highlights | Episode 18 - April 6, 2025",
+    title: "Be The Next 9 Dreamers Cali Highlights | Episode 16 - March 30, 2025",
     views: "No views",
     date: "Premiere in 1 day 30 hours",
     thumbnail: "/lovable-uploads/4999fe29-b764-4823-8d23-6faef6fc8e32.png"
   },
   {
     id: "SinQ2oem8xo",
-    title: "Be The Next 9 Dreamers Cali Highlights | Episode 17 - April 5, 2025",
+    title: "Be The Next 9 Dreamers Cali Highlights | Episode 15 - March 29, 2025",
     views: "No views",
     date: "Premiere in 12 hours",
     thumbnail: "/lovable-uploads/4999fe29-b764-4823-8d23-6faef6fc8e32.png"
   },
   {
     id: "ucPQ7ouOc_8",
-    title: "Be The Next 9 Dreamers Cali Highlights | Episode 16 - March 30, 2025",
+    title: "Be The Next 9 Dreamers Cali Highlights | Episode 9 - March 8, 2025",
     views: "2.5K views",
     date: "6 days ago",
     thumbnail: "/lovable-uploads/4999fe29-b764-4823-8d23-6faef6fc8e32.png"
   },
   {
     id: "646emmtbyfE",
-    title: "Be The Next 9 Dreamers Cali Highlights | Episode 15 - March 29, 2025",
+    title: "Be The Next 9 Dreamers Cali Highlights | Episode 7 - March 1, 2025",
     views: "2.5K views",
     date: "7 days ago",
     thumbnail: "/lovable-uploads/4999fe29-b764-4823-8d23-6faef6fc8e32.png"
   },
   {
     id: "K4bQcn2Cstk",
-    title: "Be The Next 9 Dreamers Cali Highlights | Episode 14 - March 23, 2025",
+    title: "Be The Next 9 Dreamers Cali Highlights | Episode 6 - February 23, 2025",
     views: "2.5K views",
     date: "13 days ago",
     thumbnail: "/lovable-uploads/4999fe29-b764-4823-8d23-6faef6fc8e32.png"
   },
   {
     id: "TxNQOlIgwKA",
-    title: "Be The Next 9 Dreamers Cali Highlights | Episode 13 - March 22, 2025",
+    title: "Be The Next 9 Dreamers Cali Highlights | Episode 5 - February 22, 2025",
     views: "2.5K views",
     date: "14 days ago",
     thumbnail: "/lovable-uploads/4999fe29-b764-4823-8d23-6faef6fc8e32.png"
