@@ -55,25 +55,25 @@ const shortsVideos = [
     id: "cwvlrPUnI9I",
     title: "this is how it feels like to be an enhypen album collector",
     views: "4M views",
-    thumbnail: "https://i.ytimg.com/vi/cwvlrPUnI9I/maxresdefault.jpg"
+    thumbnail: "/placeholder.svg"
   },
   {
     id: "zG60AIfZy4U",
     title: "THANOS WAS LOCKED IN S3 🔥 #SQUID",
     views: "3.5M views",
-    thumbnail: "https://i.ytimg.com/vi/zG60AIfZy4U/maxresdefault.jpg"
+    thumbnail: "/placeholder.svg"
   },
   {
     id: "a7vDWkga6vs",
     title: "I only focused on Yuri✨ 🔥 btw his last walk🫠",
     views: "2M views",
-    thumbnail: "https://i.ytimg.com/vi/a7vDWkga6vs/maxresdefault.jpg"
+    thumbnail: "/placeholder.svg"
   },
   {
     id: "j0RB9vt0Mac",
     title: "Miniature THE MONSTERS - Tasty",
     views: "17M views",
-    thumbnail: "https://i.ytimg.com/vi/j0RB9vt0Mac/maxresdefault.jpg"
+    thumbnail: "/placeholder.svg"
   }
 ];
 
