@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { Calendar, Info, Award, Clock, Users, Star, Mail } from "lucide-react";
@@ -37,7 +36,9 @@ const days = [
   {
     name: "Spotlight Saturday",
     icon: <Star className="h-5 w-5 text-orange-500" />,
-    description: "A highlight of Cali's best performances or achievements."
+    description: "A highlight of Cali's best performances or achievements.",
+    type: "video",
+    content: "cwvlrPUnI9I"  // YouTube video ID from the Shorts URL
   },
   {
     name: "Sunday Inbox",
