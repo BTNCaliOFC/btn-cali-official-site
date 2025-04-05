@@ -7,8 +7,6 @@ const highlightsVideos = [
   {
     id: "smcLDR8Tfes",
     title: "Be The Next 9 Dreamers Cali Highlights | Episode 16 - March 30, 2025",
-    views: "No views",
-    date: "Premiere in 1 day 30 hours",
     thumbnail: "/lovable-uploads/4999fe29-b764-4823-8d23-6faef6fc8e32.png"
   },
   {
