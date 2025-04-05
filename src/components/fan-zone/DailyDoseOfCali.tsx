@@ -1,70 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Calendar, Info, Award, Clock, Users, Star, Mail } from "lucide-react";
-import { Volume2, VolumeX } from "lucide-react";
-
-// Add this CSS at the top of your file or in a separate CSS module
-const styles = {
-  envelope: `
-    .envelope {
-      position: relative;
-      width: 200px;
-      height: 150px;
-      background: #f0f0f0;
-      margin: 20px auto;
-      cursor: pointer;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-    }
-
-    .envelope.flipped {
-      transform: rotateX(180deg);
-    }
-
-    .envelope-front, .envelope-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-    }
-
-    .envelope-front {
-      background: linear-gradient(135deg, #e3e3e3, #ffffff);
-      border: 2px solid #ccc;
-    }
-
-    .envelope-back {
-      background: #ffffff;
-      transform: rotateX(180deg);
-      padding: 20px;
-      text-align: center;
-    }
-
-    .typing-animation {
-      display: inline-block;
-      overflow: hidden;
-      white-space: pre-wrap;
-      animation: typing 3s steps(40, end);
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-  `,
-};
-
-// Weekly messages data
-const weeklyMessages = [
-  "Dear Cali, your dedication and hard work inspire us every day! Fighting! 💪",
-  "Your passion for music shines through in every performance. Keep going! ✨",
-  "We believe in you, Cali! Your DreamKeepers are always here to support you! 💙",
-  // Add more messages for rotation
-];
 
 const days = [
   {
@@ -112,76 +48,9 @@ const days = [
   {
     name: "Sunday Inbox",
     icon: <Mail className="h-5 w-5 text-yellow-500" />,
-    description: "Send messages, letters, or questions for Cali, and the best ones get featured!",
-    type: "custom",
-    content: "inbox" // Special handling for inbox content
+    description: "Send messages, letters, or questions for Cali, and the best ones get featured!"
   }
 ];
-
-const SundayInbox = () => {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [currentMessage, setCurrentMessage] = useState("");
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(new Audio("/lovable-uploads/background-music.mp3")); // Add your background music file
-
-  useEffect(() => {
-    // Get week number to rotate messages
-    const weekNumber = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
-    const messageIndex = weekNumber % weeklyMessages.length;
-    setCurrentMessage(weeklyMessages[messageIndex]);
-
-    // Set up audio
-    audioRef.current.volume = 0.3; // 30% volume
-    audioRef.current.loop = true;
-
-    return () => {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    };
-  }, []);
-
-  const toggleEnvelope = () => {
-    setIsFlipped(!isFlipped);
-    if (!isFlipped && !isPlaying) {
-      audioRef.current.play();
-      setIsPlaying(true);
-    }
-  };
-
-  const toggleAudio = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  return (
-    <div className="relative">
-      <style>{styles.envelope}</style>
-      
-      <button
-        onClick={toggleAudio}
-        className="absolute top-2 right-2 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
-      >
-        {isPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
-      </button>
-
-      <div className={`envelope ${isFlipped ? 'flipped' : ''}`} onClick={toggleEnvelope}>
-        <div className="envelope-front">
-          <Mail className="h-12 w-12 text-yellow-500" />
-        </div>
-        <div className="envelope-back">
-          <div className="typing-animation">
-            {currentMessage}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const DailyDoseOfCali = () => {
   // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
@@ -228,26 +97,30 @@ const DailyDoseOfCali = () => {
           <p className="text-gray-700 dark:text-gray-300 mb-4">{days[selectedDay].description}</p>
           
           <div className="mt-4 bg-white dark:bg-gray-700 p-4 rounded-lg border shadow-sm">
-            {days[selectedDay].type === "custom" ? (
-              <SundayInbox />
-            ) : days[selectedDay].type === "video" ? (
+            {days[selectedDay].content ? (
               <div className="flex justify-center">
-                <div className="w-full aspect-video">
-                  <iframe 
-                    src={`https://www.youtube.com/embed/${days[selectedDay].content}`}
-                    title={days[selectedDay].name}
-                    className="w-full h-full rounded-lg"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen
+                {days[selectedDay].type === "video" ? (
+                  <div className="w-full aspect-video">
+                    <iframe 
+                      src={`https://www.youtube.com/embed/${days[selectedDay].content}`}
+                      title={days[selectedDay].name}
+                      className="w-full h-full rounded-lg"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <img 
+                    src={days[selectedDay].content} 
+                    alt={days[selectedDay].name}
+                    className="max-w-full rounded-lg shadow-sm" 
                   />
-                </div>
+                )}
               </div>
             ) : (
-              <img 
-                src={days[selectedDay].content} 
-                alt={days[selectedDay].name}
-                className="max-w-full rounded-lg shadow-sm" 
-              />
+              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                Today's {days[selectedDay].name} content will appear here. Stay tuned for daily updates!
+              </p>
             )}
           </div>
         </div>
