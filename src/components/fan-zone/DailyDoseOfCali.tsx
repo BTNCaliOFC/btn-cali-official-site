@@ -7,8 +7,7 @@ const days = [
     name: "Motivation Monday",
     icon: <Calendar className="h-5 w-5 text-blue-500" />,
     description: "Inspiring quotes, messages, or throwback moments from Cali.",
-    type: "video",
-    content: "dQw4w9WgXcQ"  // This is the video ID from the YouTube URL
+    image: "/lovable-uploads/1ad97c1c-1284-471d-ac42-8d385fd33eb0.png"
   },
   {
     name: "TMI Tuesday",
@@ -32,7 +31,7 @@ const days = [
     name: "Fan Feature Friday",
     icon: <Users className="h-5 w-5 text-pink-500" />,
     description: "Shoutouts to active fans, top voters, and special contributors.",
-    image: "/lovable-uploads/07498ba1-0839-44cd-bc9c-6e87b76403ce.png"
+    image: "/lovable-uploads/fanfeaturefriday.png"
   },
   {
     name: "Spotlight Saturday",
