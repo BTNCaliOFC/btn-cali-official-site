@@ -15,21 +15,21 @@ const days = [
     icon: <Info className="h-5 w-5 text-indigo-500" />,
     description: "Fun facts and behind-the-scenes trivia about Cali.",
     type: "image",
-    content: "/lovable-uploads/1ad97c1c-1284-471d-ac42-8d385fd33eb0.png"
+    content: "/lovable-uploads/9e521c6b-08f4-41b3-9e1f-07cb7318a2aa.png"
   },
   {
     name: "Winning Wednesday",
     icon: <Award className="h-5 w-5 text-violet-500" />,
     description: "Competitions, fan challenges, or fandom achievements.",
     type: "image",
-    content: "/lovable-uploads/f3a97b9f-ea2e-4a78-8460-4351a0193daf.png"
+    content: "/lovable-uploads/1ad97c1c-1284-471d-ac42-8d385fd33eb0.png"
   },
   {
     name: "Throwback Thursday",
     icon: <Clock className="h-5 w-5 text-purple-500" />,
     description: "Memorable moments from Cali's journey so far.",
     type: "image",
-    content: "/lovable-uploads/9e521c6b-08f4-41b3-9e1f-07cb7318a2aa.png"
+    content: "/lovable-uploads/f3a97b9f-ea2e-4a78-8460-4351a0193daf.png"
   },
   {
     name: "Fan Feature Friday",
