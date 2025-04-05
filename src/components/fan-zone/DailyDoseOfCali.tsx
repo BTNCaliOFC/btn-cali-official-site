@@ -121,13 +121,25 @@ Lezz gaur and fightinggg!! 💜
   const playAudio = () => {
     if (audioRef.current && !isPlaying) {
       audioRef.current.volume = 0.3;
-      audioRef.current.play()
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch(error => {
-          console.error("Audio playback error:", error);
-        });
+      const playPromise = audioRef.current.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(error => {
+            console.error("Audio playback error:", error);
+            // Try to play again after a short delay
+            setTimeout(() => {
+              if (audioRef.current) {
+                audioRef.current.play()
+                  .then(() => setIsPlaying(true))
+                  .catch(e => console.error("Retry failed:", e));
+              }
+            }, 1000);
+          });
+      }
     }
   };
 
@@ -176,6 +188,7 @@ Lezz gaur and fightinggg!! 💜
           <audio 
             ref={audioRef} 
             src="/lovable-uploads/sunday_inbox.mp3"
+            preload="auto"
             loop
           />
           
