@@ -264,7 +264,7 @@ Lezz gaur and fightinggg!! 💜
           Daily Dose of Cali 💙
         </CardTitle>
         <p className="text-sm opacity-90">
-          A dedicated section featuring themed daily content to keep fans engaged and excited
+          A dedicated section featuring themed daily content to keep DreamKeepers engaged and excited
         </p>
       </CardHeader>
       <CardContent className="pt-6">
