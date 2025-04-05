@@ -52,25 +52,25 @@ const highlightsVideos = [
 const shortsVideos = [
   {
     id: "cwvlrPUnI9I",
-    title: "this is how it feels like to be an enhypen album collector",
+    title: "Cali In Focus - EP 16",
     views: "4M views",
     thumbnail: "/placeholder.svg"
   },
   {
     id: "zG60AIfZy4U",
-    title: "THANOS WAS LOCKED IN S3 🔥 #SQUID",
+    title: "Motivational Monday - March 31, 2025",
     views: "3.5M views",
     thumbnail: "/placeholder.svg"
   },
   {
     id: "a7vDWkga6vs",
-    title: "I only focused on Yuri✨ 🔥 btw his last walk🫠",
+    title: "CALI serving visuals 🥵🔥✨",
     views: "2M views",
     thumbnail: "/placeholder.svg"
   },
   {
     id: "j0RB9vt0Mac",
-    title: "Miniature THE MONSTERS - Tasty",
+    title: "TGIF! Pwede na po magpa-cute? Yes na yes! 😆✨💙",
     views: "17M views",
     thumbnail: "/placeholder.svg"
   }
