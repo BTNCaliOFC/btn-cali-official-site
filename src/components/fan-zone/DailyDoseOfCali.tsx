@@ -95,7 +95,7 @@ const DailyDoseOfCali = () => {
 
 Every week, we watch you grow—not just as a trainee, but as someone who continues to inspire many with your heart, passion, and unwavering dedication. This journey hasn't been easy, but you continue to face every challenge with courage and grit.
 
-I've always believed in you since Day 1. We've been through thick and thin, and I know the road hasn't always been smooth—but we carried on and pursued this dream together. Some may have doubted your skills and potential, but time and time again, you slay those doubts with your growth, hard work, and sincerity.
+I've always believed in you since Day 1. We've been through thick and thin, and I know the road hasn't always been smooth—but we carried on and pursued this dream. Some may have doubted your skills and potential, but time and time again, you slay those doubts with your growth, hard work, and sincerity.
 
 Whatever happens, I'm always proud of you. I'll keep cheering and supporting you, no matter where this journey takes us.
 
@@ -127,11 +127,6 @@ Lezz gaur and fightinggg!! 💜
         })
         .catch(error => {
           console.error("Audio playback error:", error);
-          toast({
-            title: "Playback Error",
-            description: "Please click the play button to enable audio playback.",
-            variant: "destructive",
-          });
         });
     }
   };
@@ -180,7 +175,7 @@ Lezz gaur and fightinggg!! 💜
           
           <audio 
             ref={audioRef} 
-            src="/sunday_inbox.mp3"
+            src="/lovable-uploads/sunday_inbox.mp3"
             loop
           />
           
