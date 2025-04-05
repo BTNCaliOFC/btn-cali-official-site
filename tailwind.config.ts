@@ -123,9 +123,38 @@ export default {
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
-        display: ['Montserrat', 'sans-serif']
+        display: ['Montserrat', 'sans-serif'],
+        handwritten: ['Caveat', 'cursive']
+      },
+      rotate: {
+        'x-180': 'rotateX(180deg)'
+      },
+      transformStyle: {
+        '3d': 'preserve-3d'
+      },
+      backfaceVisibility: {
+        'hidden': 'hidden'
       }
     }
   },
-  plugins: [require("tailwindcss-animate")]
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addUtilities }: { addUtilities: any }) {
+      const newUtilities = {
+        '.perspective-\\[1000px\\]': {
+          perspective: '1000px'
+        },
+        '.backface-hidden': {
+          backfaceVisibility: 'hidden'
+        },
+        '.transform-style-3d': {
+          transformStyle: 'preserve-3d'
+        },
+        '.rotate-x-180': {
+          transform: 'rotateX(180deg)'
+        }
+      };
+      addUtilities(newUtilities);
+    }
+  ]
 } satisfies Config;

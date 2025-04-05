@@ -24,46 +24,49 @@ const SITE_LIVE = true;
 // Set this to true when ready to make the Giveaways page live
 const GIVEAWAYS_LIVE = false;
 
-const queryClient = new QueryClient();
+const App = () => {
+  // Create a new QueryClient instance inside the component
+  const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        {SITE_LIVE ? (
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/voting-team" element={<VotingTeam />} />
-                <Route path="/social-hub" element={<SocialHub />} />
-                <Route path="/spotlight" element={<Spotlight />} />
-                <Route path="/fan-zone" element={<FanZone />} />
-                <Route path="/contact" element={<Contact />} />
-                {GIVEAWAYS_LIVE ? (
-                  <Route path="/giveaways" element={<Giveaways />} />
-                ) : (
-                  <Route path="/giveaways" element={<Navigate to="/" replace />} />
-                )}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-            <ScrollToTop />
-          </div>
-        ) : (
-          <Routes>
-            <Route path="/" element={<ComingSoon />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        )}
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          {SITE_LIVE ? (
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/voting-team" element={<VotingTeam />} />
+                  <Route path="/social-hub" element={<SocialHub />} />
+                  <Route path="/spotlight" element={<Spotlight />} />
+                  <Route path="/fan-zone" element={<FanZone />} />
+                  <Route path="/contact" element={<Contact />} />
+                  {GIVEAWAYS_LIVE ? (
+                    <Route path="/giveaways" element={<Giveaways />} />
+                  ) : (
+                    <Route path="/giveaways" element={<Navigate to="/" replace />} />
+                  )}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+              <ScrollToTop />
+            </div>
+          ) : (
+            <Routes>
+              <Route path="/" element={<ComingSoon />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          )}
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
