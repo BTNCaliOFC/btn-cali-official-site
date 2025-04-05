@@ -175,14 +175,18 @@ const days = [
   }
 ];
 
+const message = "To Cali,\n\n" +
+  "Every week, we watch you grow—not just as a trainee, but as someone who continues to inspire many with your heart, passion, and unwavering dedication. " +
+  "This journey hasn't been easy, but you continue to face every challenge with courage and grit.\n\n" +
+  "I've always believed in you since Day 1. We've been through thick and thin, and I know the road hasn't always been smooth—but we carried on and pursued this dream together. " +
+  "Some may have doubted your skills and potential, but time and time again, you slay those doubts with your growth, hard work, and sincerity.\n\n" +
+  "Keep shining, Cali! 💙✨";
+
 const SundayInbox = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const audioRef = useRef(new Audio("/lovable-uploads/sunday_inbox.mp3"));
-
-  // This week's message
-  const message = "Dear Cali, your dedication and hard work inspire us every day! Your DreamKeepers are always here supporting you. Fighting! 💙✨";
 
   useEffect(() => {
     audioRef.current.volume = 0.3;
@@ -237,7 +241,9 @@ const SundayInbox = () => {
         </div>
         <div className="envelope-back">
           <div className={`message ${showMessage ? 'typing-animation' : ''}`}>
-            {message}
+            {message.split('\n').map((paragraph, index) => (
+              <p key={index} className="mb-4">{paragraph}</p>
+            ))}
           </div>
         </div>
       </div>
