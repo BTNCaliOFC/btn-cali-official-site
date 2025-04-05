@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import VotingTeam from "./pages/VotingTeam";
 import SocialHub from "./pages/SocialHub";
+import Spotlight from "./pages/Spotlight";
 import FanZone from "./pages/FanZone";
 import Contact from "./pages/Contact";
 import Giveaways from "./pages/Giveaways";
@@ -40,6 +41,7 @@ const App = () => (
                 <Route path="/about" element={<About />} />
                 <Route path="/voting-team" element={<VotingTeam />} />
                 <Route path="/social-hub" element={<SocialHub />} />
+                <Route path="/spotlight" element={<Spotlight />} />
                 <Route path="/fan-zone" element={<FanZone />} />
                 <Route path="/contact" element={<Contact />} />
                 {GIVEAWAYS_LIVE ? (

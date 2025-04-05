@@ -9,7 +9,8 @@ import {
   MessageSquare, 
   Share2, 
   Calendar,
-  ExternalLink
+  ExternalLink,
+  User
 } from 'lucide-react';
 
 const SocialHub = () => {
@@ -103,6 +104,77 @@ const SocialHub = () => {
             </svg>
             <span>Threads</span>
           </a>
+        </div>
+        
+        {/* Cali's Personal Social Media Accounts */}
+        <div className="max-w-4xl mx-auto mb-12 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-gradient-to-r from-blue-400 to-blue-600 p-2 rounded-full text-white">
+              <User className="w-6 h-6" />
+            </div>
+            <h2 className="text-2xl font-bold">🌟 Follow Cali on Social Media</h2>
+          </div>
+          
+          <p className="mb-6 text-gray-700 dark:text-gray-300">
+            Get closer to the dreamer himself! Follow Cali's personal journey, behind-the-scenes moments, 
+            and real-time updates from his official accounts.
+          </p>
+          
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h3 className="font-medium mb-4">📱 Cali's Official Accounts:</h3>
+            <ul className="space-y-3">
+              <li className="flex items-center">
+                <Instagram className="w-5 h-5 text-pink-600 mr-2" />
+                <span className="font-medium">Instagram:</span>
+                <a 
+                  href="https://www.instagram.com/calideguzman_" 
+                  className="ml-2 text-blue-600 dark:text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  @calideguzman_
+                </a>
+              </li>
+              <li className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 448 512" className="w-5 h-5 text-black dark:text-white mr-2">
+                  <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                </svg>
+                <span className="font-medium">TikTok:</span>
+                <a 
+                  href="https://www.tiktok.com/@calideguzman_" 
+                  className="ml-2 text-blue-600 dark:text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  @calideguzman_
+                </a>
+              </li>
+              <li className="flex items-center">
+                <Facebook className="w-5 h-5 text-blue-600 mr-2" />
+                <span className="font-medium">Facebook:</span>
+                <a 
+                  href="https://www.facebook.com/share/19tPCGy3Ca/?mibextid=wwXIfr" 
+                  className="ml-2 text-blue-600 dark:text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Cali De Guzman
+                </a>
+              </li>
+              <li className="flex items-center">
+                <Twitter className="w-5 h-5 text-blue-400 mr-2" />
+                <span className="font-medium">X / Twitter:</span>
+                <a 
+                  href="https://x.com/calideguzman_" 
+                  className="ml-2 text-blue-600 dark:text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  @calideguzman_
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
         
         <div className="max-w-4xl mx-auto mb-16">
