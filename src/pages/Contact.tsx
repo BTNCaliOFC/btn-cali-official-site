@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Mail, MessageSquare, Send, AlertCircle } from 'lucide-react';
 
@@ -52,23 +51,40 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validate()) {
       setIsSubmitting(true);
       
-      // Simulate API call
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
+      try {
+        const response = await fetch('http://localhost:3000/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
         });
-      }, 1500);
+
+        const data = await response.json();
+
+        if (data.success) {
+          setIsSubmitted(true);
+          setFormData({
+            name: '',
+            email: '',
+            subject: '',
+            message: ''
+          });
+        } else {
+          throw new Error(data.message || 'Failed to send message');
+        }
+      } catch (error) {
+        console.error('Error sending message:', error);
+        // You might want to show an error message to the user here
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
   
