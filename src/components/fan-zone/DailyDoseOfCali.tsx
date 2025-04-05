@@ -7,38 +7,43 @@ const days = [
     name: "Motivation Monday",
     icon: <Calendar className="h-5 w-5 text-blue-500" />,
     description: "Inspiring quotes, messages, or throwback moments from Cali.",
-    image: "/lovable-uploads/motivationmonday.png"
+    type: "image",
+    content: "/lovable-uploads/62163c2f-d019-42bf-b0df-f6aac517b869.png"
   },
   {
     name: "TMI Tuesday",
     icon: <Info className="h-5 w-5 text-indigo-500" />,
     description: "Fun facts and behind-the-scenes trivia about Cali.",
-    image: "/lovable-uploads/tmituesday.png"
+    type: "image",
+    content: "/lovable-uploads/1ad97c1c-1284-471d-ac42-8d385fd33eb0.png"
   },
   {
     name: "Winning Wednesday",
     icon: <Award className="h-5 w-5 text-violet-500" />,
     description: "Competitions, fan challenges, or fandom achievements.",
-    image: "/lovable-uploads/winningwednesday.png"
+    type: "image",
+    content: "/lovable-uploads/f3a97b9f-ea2e-4a78-8460-4351a0193daf.png"
   },
   {
     name: "Throwback Thursday",
     icon: <Clock className="h-5 w-5 text-purple-500" />,
     description: "Memorable moments from Cali's journey so far.",
-    image: "/lovable-uploads/throwbackthursday.png"
+    type: "image",
+    content: "/lovable-uploads/9e521c6b-08f4-41b3-9e1f-07cb7318a2aa.png"
   },
   {
     name: "Fan Feature Friday",
     icon: <Users className="h-5 w-5 text-pink-500" />,
     description: "Shoutouts to active fans, top voters, and special contributors.",
-    image: "/lovable-uploads/fanfeaturefriday.png"
+    type: "image",
+    content: "/lovable-uploads/07498ba1-0839-44cd-bc9c-6e87b76403ce.png"
   },
   {
     name: "Spotlight Saturday",
     icon: <Star className="h-5 w-5 text-orange-500" />,
     description: "A highlight of Cali's best performances or achievements.",
     type: "video",
-    content: "cwvlrPUnI9I"  // YouTube video ID from the Shorts URL
+    content: "cwvlrPUnI9I"
   },
   {
     name: "Sunday Inbox",
