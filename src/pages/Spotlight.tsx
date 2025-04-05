@@ -107,7 +107,7 @@ const Spotlight = () => {
                   <CardContent className="p-4">
                     <h3 className="font-medium text-sm line-clamp-2 mb-1">{video.title}</h3>
                     <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                      <span>{video.views} | {video.date}</span>
+                      <span>{video.views} • {video.date}</span>
                     </div>
                   </CardContent>
                 </Card>
