@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -10,7 +9,7 @@ const EpisodeCountdown = () => {
     seconds: 0
   });
   const [episodeInfo, setEpisodeInfo] = useState({
-    number: 18, // Starting with Episode 18 today
+    number: 18, // Episode 18 tonight
     airDate: new Date()
   });
 
@@ -57,7 +56,7 @@ const EpisodeCountdown = () => {
     const baseEpisodeNumber = 18;
     
     // Days since starting point (April 6, 2025)
-    const startingDate = new Date(2025, 3, 6); // April 6, 2025
+    const startingDate = new Date(2025, 3, 6);
     const daysSinceStart = Math.floor((now.getTime() - startingDate.getTime()) / (1000 * 60 * 60 * 24));
     
     // Calculate which week we're in (each week has 2 episodes)
