@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Youtube, ExternalLink } from "lucide-react";
-import { Card, CardContent } from "@/components/ui 2/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Video data for highlights section
 const highlightsVideos = [
