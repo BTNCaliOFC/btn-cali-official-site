@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { Youtube, ExternalLink } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui 2/card";
 
 // Video data for highlights section
 const highlightsVideos = [
@@ -90,7 +91,7 @@ const Spotlight = () => {
                   <CardContent className="p-4">
                     <h3 className="font-medium text-sm line-clamp-2 mb-1">{video.title}</h3>
                     <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                      <span>{video.views} • {video.date}</span>
+                      {/* Removed reference to non-existent properties */}
                     </div>
                   </CardContent>
                 </Card>
@@ -133,7 +134,7 @@ const Spotlight = () => {
                   <CardContent className="p-3">
                     <h3 className="font-medium text-xs line-clamp-2 mb-1">{video.title}</h3>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
-                      <span>{video.views}</span>
+                      {/* Removed reference to non-existent property */}
                     </div>
                   </CardContent>
                 </Card>
