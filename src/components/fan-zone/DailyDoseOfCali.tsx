@@ -39,9 +39,28 @@ const styles = {
     }
 
     .envelope-front {
-      background: linear-gradient(135deg, var(--btn-color), var(--accent-color));
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, #1AA7EC, #0E76B1);
+      box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+    
+    .envelope-front:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: skewX(-25deg);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { left: -100%; }
+      20% { left: 100%; }
+      100% { left: 100%; }
     }
 
     .envelope-back {
@@ -49,8 +68,10 @@ const styles = {
       transform: rotateX(180deg);
       padding: 24px;
       text-align: left;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
+      color: #1e3a8a;
+      border: 2px solid #e5e7eb;
     }
 
     .message {
@@ -74,7 +95,7 @@ const styles = {
       white-space: pre-line;
       overflow: hidden;
       border-right: 2px solid #3b82f6;
-      animation: typing 8s steps(40, end), blink-caret 0.75s step-end infinite;
+      animation: typing 4.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
       max-width: 100%;
     }
 
@@ -90,21 +111,27 @@ const styles = {
 
     .audio-control {
       position: absolute;
-      top: -8px;
-      right: -8px;
+      top: -12px;
+      right: -12px;
       z-index: 10;
       background: white;
       border-radius: 50%;
-      padding: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
       border: 2px solid #e5e7eb;
       cursor: pointer;
       transition: all 0.2s ease;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .audio-control:hover {
       transform: scale(1.1);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+      background: #f0f9ff;
     }
 
     .letter-content {
@@ -151,6 +178,7 @@ const styles = {
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
+      backdrop-filter: blur(4px);
     }
 
     .envelope-overlay.active {
@@ -168,6 +196,16 @@ const styles = {
       overflow-y: auto;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       position: relative;
+      animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    
+    @keyframes pop-in {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .close-button {
@@ -187,6 +225,23 @@ const styles = {
 
     .close-button:hover {
       background: rgba(219, 234, 254, 1);
+    }
+    
+    .envelope-decoration {
+      position: absolute;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+      width: 150px;
+      height: 150px;
+    }
+    
+    .decoration-1 {
+      top: -40px;
+      right: -40px;
+    }
+    
+    .decoration-2 {
+      bottom: -30px;
+      left: -30px;
     }
   `,
 };
@@ -265,10 +320,14 @@ const SundayInbox = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("https://mypublicfiles.s3.amazonaws.com/pv1UkRXo84U.mp3");
-    audioRef.current.volume = 0.5;
+    // Create audio element
+    audioRef.current = new Audio();
+    audioRef.current.src = "https://mypublicfiles.s3.amazonaws.com/pv1UkRXo84U.mp3";
+    audioRef.current.volume = 0.4;
     audioRef.current.loop = true;
+    audioRef.current.preload = "auto";
 
+    // Cleanup function
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -280,16 +339,21 @@ const SundayInbox = () => {
   const toggleEnvelope = () => {
     setIsFlipped(!isFlipped);
     if (!isFlipped) {
-      setShowMessage(true);
+      setTimeout(() => setShowMessage(true), 300);
       if (audioRef.current && !isPlaying) {
-        audioRef.current.play()
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch(error => {
-            console.error("Audio playback error:", error);
-          });
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch(error => {
+              console.error("Audio playback error:", error);
+            });
+        }
       }
+    } else {
+      setShowMessage(false);
     }
   };
 
@@ -298,19 +362,39 @@ const SundayInbox = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        setIsPlaying(false);
       } else {
-        audioRef.current.play()
-          .catch(error => {
-            console.error("Audio playback error:", error);
-          });
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch(error => {
+              console.error("Audio playback error:", error);
+            });
+        }
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
   const openFullscreen = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowFullscreen(true);
+    
+    // Ensure audio plays when fullscreen opens
+    if (audioRef.current && !isPlaying) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(error => {
+            console.error("Audio playback error:", error);
+          });
+      }
+    }
   };
 
   const closeFullscreen = () => {
@@ -339,6 +423,7 @@ const SundayInbox = () => {
           onClick={toggleAudio}
           className="audio-control"
           aria-label={isPlaying ? "Mute" : "Unmute"}
+          title={isPlaying ? "Mute music" : "Play music"}
         >
           {isPlaying ? (
             <Volume2 size={20} className="text-blue-600" />
@@ -349,6 +434,8 @@ const SundayInbox = () => {
 
         <div className={`envelope ${isFlipped ? 'flipped' : ''}`} onClick={toggleEnvelope}>
           <div className="envelope-front">
+            <div className="envelope-decoration decoration-1"></div>
+            <div className="envelope-decoration decoration-2"></div>
             <Mail className="h-16 w-16 text-white" />
           </div>
           <div className="envelope-back">
@@ -359,9 +446,12 @@ const SundayInbox = () => {
                   <div className="mt-4 flex justify-center">
                     <button 
                       onClick={openFullscreen}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 transition-colors"
+                      className="px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 transition-colors shadow-md flex items-center gap-1"
                     >
                       Read Full Letter
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m18 15-6-6-6 6"/>
+                      </svg>
                     </button>
                   </div>
                 )}

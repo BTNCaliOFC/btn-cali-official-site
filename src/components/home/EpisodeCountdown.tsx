@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -9,7 +10,7 @@ const EpisodeCountdown = () => {
     seconds: 0
   });
   const [episodeInfo, setEpisodeInfo] = useState({
-    number: 0,
+    number: 18, // Starting with Episode 18 today
     airDate: new Date()
   });
 
@@ -52,7 +53,7 @@ const EpisodeCountdown = () => {
     let targetDate;
     let episodeNumber;
     
-    // Starting with Episode 18 on Sunday (today)
+    // Starting with Episode 18 on April 6, 2025 (Sunday)
     const baseEpisodeNumber = 18;
     
     // Days since starting point (April 6, 2025)
@@ -71,7 +72,7 @@ const EpisodeCountdown = () => {
     } else if (now < sundayDate) {
       // Next episode is Sunday
       targetDate = nextSundayDate;
-      episodeNumber = baseEpisodeNumber + episodeOffset; // Sunday episode
+      episodeNumber = baseEpisodeNumber; // Sunday episode (today)
     } else {
       // Next episode is next Saturday
       targetDate = nextSaturdayDate;
@@ -133,7 +134,7 @@ const EpisodeCountdown = () => {
               weekday: 'long',
               month: 'short',
               day: 'numeric'
-            })} at 8:30PM Philippines Time
+            })} at 8:30PM Philippines Time (PHT) on TV5
           </p>
           
           <div className="flex justify-center space-x-3">
