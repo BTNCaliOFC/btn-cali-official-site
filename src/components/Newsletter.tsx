@@ -1,8 +1,8 @@
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui 2/button";
+import { Input } from "@/components/ui 2/input";
+import { useToast } from "@/hooks/use-toast";
 import { subscribeToNewsletter } from "@/integrations/supabase/client";
 
 export function Newsletter() {

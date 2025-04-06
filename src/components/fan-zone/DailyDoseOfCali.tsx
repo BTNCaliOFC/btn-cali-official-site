@@ -1,34 +1,128 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect, useRef } from "react";
-import { Calendar, Info, Award, Clock, Users, Star, Mail, Pause, Play, Music } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { Calendar, Info, Award, Clock, Users, Star, Mail, Volume2, VolumeX } from "lucide-react";
 
-// Create a typing effect component
-const TypeWriter = ({ text }: { text: string }) => {
-  const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const speed = 40; // typing speed in ms
-  
-  useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(currentIndex + 1);
-      }, speed);
-      
-      return () => clearTimeout(timeout);
+// Add this CSS at the top of your file or in a separate CSS module
+const styles = {
+  envelope: `
+    .envelope-container {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      margin: 20px auto;
+      perspective: 1000px;
     }
-  }, [currentIndex, text]);
-  
-  return (
-    <div className="whitespace-pre-line">
-      {displayText}
-      {currentIndex < text.length && <span className="animate-pulse">|</span>}
-    </div>
-  );
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .envelope.flipped {
+      transform: rotateX(180deg);
+    }
+
+    .envelope-front, .envelope-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .envelope-front {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .envelope-back {
+      background: #ffffff;
+      transform: rotateX(180deg);
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .message {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #1e3a8a;
+    }
+
+    @media (max-width: 640px) {
+      .envelope {
+        height: 180px;
+      }
+      .message {
+        font-size: 0.875rem;
+      }
+    }
+
+    .typing-animation {
+      display: inline-block;
+      white-space: pre-wrap;
+      overflow: hidden;
+      border-right: 2px solid #3b82f6;
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+      max-width: 100%;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #3b82f6 }
+    }
+
+    .audio-control {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      z-index: 10;
+      background: white;
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: 2px solid #e5e7eb;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .audio-control:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  `,
 };
+
+// Weekly messages data
+const weeklyMessages = [
+  `To Cali,
+
+Every week, we watch you grow—not just as a trainee, but as someone who continues to inspire many with your heart, passion, and unwavering dedication. This journey hasn't been easy, but you continue to face every challenge with courage and grit.
+
+I've always believed in you since Day 1. We've been through thick and thin, and I know the road hasn't always been smooth—but we carried on and pursued this dream together. Some may have doubted your skills and potential, but time and time again, you slay those doubts with your growth, hard work, and sincerity.
+
+Whatever happens, I'm always proud of you. I'll keep cheering and supporting you, no matter where this journey takes us.
+
+Thank you for sharing your dreams with your fans. Thank you for never giving up. Know that I'm always here for you—always have been, and always will be. Your light reaches farther than you know, and your DreamKeepers will always be by your side, cheering you on.
+
+Lezz gaur and fightinggg!! 💜
+— Admin Kim`
+  // Add more messages for rotation
+];
 
 const days = [
   {
@@ -76,201 +170,90 @@ const days = [
   {
     name: "Sunday Inbox",
     icon: <Mail className="h-5 w-5 text-yellow-500" />,
-    description: "Send messages, letters, or questions for Cali, and the best ones get featured!"
+    description: "Send messages, letters, or questions for Cali, and the best ones get featured!",
+    type: "custom",
+    content: "inbox"
   }
 ];
 
+const SundayInbox = () => {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const audioRef = useRef(new Audio("/lovable-uploads/sunday_inbox.mp3"));
+
+  // This week's message
+  const message = "Dear Cali, your dedication and hard work inspire us every day! Your DreamKeepers are always here supporting you. Fighting! 💙✨";
+
+  useEffect(() => {
+    audioRef.current.volume = 0.3;
+    audioRef.current.loop = true;
+
+    return () => {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    };
+  }, []);
+
+  const toggleEnvelope = () => {
+    setIsFlipped(!isFlipped);
+    if (!isFlipped) {
+      setShowMessage(true);
+      if (!isPlaying) {
+        audioRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  const toggleAudio = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  return (
+    <div className="envelope-container">
+      <style>{styles.envelope}</style>
+      
+      <button
+        onClick={toggleAudio}
+        className="audio-control"
+        aria-label={isPlaying ? "Mute" : "Unmute"}
+      >
+        {isPlaying ? (
+          <Volume2 size={20} className="text-blue-600" />
+        ) : (
+          <VolumeX size={20} className="text-gray-400" />
+        )}
+      </button>
+
+      <div className={`envelope ${isFlipped ? 'flipped' : ''}`} onClick={toggleEnvelope}>
+        <div className="envelope-front">
+          <Mail className="h-16 w-16 text-white" />
+        </div>
+        <div className="envelope-back">
+          <div className={`message ${showMessage ? 'typing-animation' : ''}`}>
+            {message}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const DailyDoseOfCali = () => {
+  // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
   const today = new Date().getDay();
+  // Convert to our array index (where Monday is 0)
   const dayIndex = today === 0 ? 6 : today - 1;
   
   const [selectedDay, setSelectedDay] = useState(dayIndex);
   
-  const [isShowingMessage, setIsShowingMessage] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const { toast } = useToast();
-  
-  const fanMessage = `To Cali,
-
-Every week, we watch you grow—not just as a trainee, but as someone who continues to inspire many with your heart, passion, and unwavering dedication. This journey hasn't been easy, but you continue to face every challenge with courage and grit.
-
-I've always believed in you since Day 1. We've been through thick and thin, and I know the road hasn't always been smooth—but we carried on and pursued this dream. Some may have doubted your skills and potential, but time and time again, you slay those doubts with your growth, hard work, and sincerity.
-
-Whatever happens, I'm always proud of you. I'll keep cheering and supporting you, no matter where this journey takes us.
-
-Thank you for sharing your dreams with your fans. Thank you for never giving up. Know that I'm always here for you—always have been, and always will be. Your light reaches farther than you know, and your DreamKeepers will always be by your side, cheering you on.
-
-Lezz gaur and fightinggg!! 💜
-— Admin Kim`;
-
-  // Updated to make sure audio plays on interaction
-  const handleMessageOpen = () => {
-    if (!isShowingMessage) {
-      setIsShowingMessage(true);
-      setTimeout(() => {
-        setIsTyping(true);
-      }, 500);
-      
-      // Play audio when message is opened
-      playAudio();
-    }
-  };
-
-  // New function to handle audio playback
-  const playAudio = () => {
-    if (audioRef.current && !isPlaying) {
-      audioRef.current.volume = 0.3;
-      const playPromise = audioRef.current.play();
-      
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch(error => {
-            console.error("Audio playback error:", error);
-            // Try to play again after a short delay
-            setTimeout(() => {
-              if (audioRef.current) {
-                audioRef.current.play()
-                  .then(() => setIsPlaying(true))
-                  .catch(e => console.error("Retry failed:", e));
-              }
-            }, 1000);
-          });
-      }
-    }
-  };
-
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        playAudio();
-      }
-    }
-  };
-
-  useEffect(() => {
-    // We won't try to autoplay here anymore - will rely on user interaction
-    if (selectedDay !== 6 && audioRef.current && isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    }
-    
-    // Reset message state when changing days
-    if (selectedDay !== 6) {
-      setIsShowingMessage(false);
-      setIsTyping(false);
-    }
-  }, [selectedDay]);
-
-  const renderDayContent = () => {
-    if (selectedDay === 6) {
-      return (
-        <div className="py-4">
-          <div className="flex justify-end mb-4">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={toggleMusic}
-              className="flex items-center gap-2 text-primary hover:text-primary-foreground hover:bg-primary/90"
-            >
-              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-              <Music size={16} />
-              <span className="text-sm">{isPlaying ? 'Pause Music' : 'Play Music'}</span>
-            </Button>
-          </div>
-          
-          <audio 
-            ref={audioRef} 
-            src="/lovable-uploads/sunday_inbox.mp3"
-            preload="auto"
-            loop
-          />
-          
-          {!isShowingMessage ? (
-            <div 
-              onClick={handleMessageOpen}
-              className="cursor-pointer transition-all duration-300 hover:shadow-md group"
-            >
-              <div className="bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg p-6 flex items-center gap-4">
-                <div className="bg-primary/90 text-primary-foreground rounded-full p-3 shadow-lg">
-                  <Mail className="h-6 w-6" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-primary">Sunday Message for Cali</h3>
-                  <p className="text-muted-foreground">Click to read this week's featured message</p>
-                </div>
-                <div className="bg-primary/5 rounded-full p-2 transition-transform group-hover:translate-x-1">
-                  <Play className="h-5 w-5 text-primary" />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="transition-all animate-fade-in">
-              <div className="bg-card rounded-lg shadow-sm border p-6 max-h-[500px] overflow-y-auto">
-                <div className="mb-3 pb-2 border-b flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-primary"></div>
-                    <div className="text-sm font-medium">Featured Message</div>
-                  </div>
-                  <div className="text-xs text-muted-foreground">Today</div>
-                </div>
-                
-                <div className="prose prose-sm max-w-none">
-                  {isTyping ? (
-                    <div className="font-handwritten text-foreground leading-relaxed">
-                      <TypeWriter text={fanMessage} />
-                    </div>
-                  ) : (
-                    <div className="flex justify-center items-center h-32">
-                      <div className="animate-pulse">Loading message...</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      );
-    }
-
-    if (days[selectedDay].content) {
-      return (
-        <div className="flex justify-center">
-          {days[selectedDay].type === "video" ? (
-            <div className="w-full aspect-video">
-              <iframe 
-                src={`https://www.youtube.com/embed/${days[selectedDay].content}`}
-                title={days[selectedDay].name}
-                className="w-full h-full rounded-lg"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen
-              />
-            </div>
-          ) : (
-            <img 
-              src={days[selectedDay].content} 
-              alt={days[selectedDay].name}
-              className="max-w-full rounded-lg shadow-sm" 
-            />
-          )}
-        </div>
-      );
-    }
-
-    return (
-      <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-        Today's {days[selectedDay].name} content will appear here. Stay tuned for daily updates!
-      </p>
-    );
-  };
-
   return (
     <Card className="mb-8 shadow-md hover:shadow-lg transition-shadow duration-300">
       <CardHeader className="pb-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-t-lg">
@@ -278,7 +261,7 @@ Lezz gaur and fightinggg!! 💜
           Daily Dose of Cali 💙
         </CardTitle>
         <p className="text-sm opacity-90">
-          A dedicated section featuring themed daily content to keep DreamKeepers engaged and excited
+          A dedicated section featuring themed daily content to keep fans engaged and excited
         </p>
       </CardHeader>
       <CardContent className="pt-6">
@@ -308,7 +291,27 @@ Lezz gaur and fightinggg!! 💜
           <p className="text-gray-700 dark:text-gray-300 mb-4">{days[selectedDay].description}</p>
           
           <div className="mt-4 bg-white dark:bg-gray-700 p-4 rounded-lg border shadow-sm">
-            {renderDayContent()}
+            {days[selectedDay].type === "custom" ? (
+              <SundayInbox />
+            ) : days[selectedDay].type === "video" ? (
+              <div className="flex justify-center">
+                <div className="w-full aspect-video">
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${days[selectedDay].content}`}
+                    title={days[selectedDay].name}
+                    className="w-full h-full rounded-lg"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            ) : (
+              <img 
+                src={days[selectedDay].content} 
+                alt={days[selectedDay].name}
+                className="max-w-full rounded-lg shadow-sm" 
+              />
+            )}
           </div>
         </div>
       </CardContent>
