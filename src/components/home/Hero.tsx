@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import Countdown from './Countdown';
+import EpisodeCountdown from './EpisodeCountdown';
 
 const Hero = () => {
   return (
@@ -26,8 +26,7 @@ const Hero = () => {
           </div>
           
           <div className="mt-10">
-            <p className="text-gray-600 dark:text-gray-400 mb-3 text-sm font-medium">NEXT EPISODE COUNTDOWN</p>
-            <Countdown targetDate="2025-04-05T20:30:00+08:00" />
+            <EpisodeCountdown />
           </div>
         </div>
         
