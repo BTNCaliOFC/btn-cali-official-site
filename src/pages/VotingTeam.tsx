@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CheckCircle, Info, Phone, Award, FileText, Facebook, Mail, ExternalLink, Globe } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui 2/button';
 
 const VotingTeam = () => {
   const [activeTab, setActiveTab] = useState(0);

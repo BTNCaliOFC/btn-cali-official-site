@@ -1,4 +1,3 @@
-
 import { 
   Facebook, 
   Instagram, 
@@ -9,7 +8,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui 2/button";
 
 const socialLinks = [
   {
@@ -49,7 +48,6 @@ const ComingSoon = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   
   useEffect(() => {
-    // Add a small delay to ensure smooth animation
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 300);
@@ -59,7 +57,6 @@ const ComingSoon = () => {
   
   return (
     <div className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center">
-      {/* Background Image with direct URL */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ 
@@ -69,10 +66,8 @@ const ComingSoon = () => {
         }}
       />
       
-      {/* Overlay */}
       <div className="absolute inset-0 z-10 bg-black/30" />
       
-      {/* Content container */}
       <div className={`z-20 text-white text-center px-6 transition-all duration-700 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-8'}`}>
         <h1 className="text-4xl md:text-6xl font-bold mb-4 text-shadow">
           BTN Cali Official
@@ -84,7 +79,6 @@ const ComingSoon = () => {
             The official fan site for Be The NEXT Dreamer: Cali. Stay tuned!
           </p>
           
-          {/* Social Media Icons */}
           <div className="flex flex-wrap justify-center gap-5 mb-6">
             {socialLinks.map((link, index) => (
               <a
@@ -104,7 +98,6 @@ const ComingSoon = () => {
             Follow us on social media for updates
           </div>
           
-          {/* Vote Button (moved after text) */}
           <div className="mt-6 mb-4">
             <a 
               href="https://vote.btncaliofficial.com" 
@@ -122,7 +115,6 @@ const ComingSoon = () => {
         </div>
       </div>
       
-      {/* Footer */}
       <div className="absolute bottom-4 text-white/60 text-sm z-20">
         &copy; {new Date().getFullYear()} BTN Cali Official
       </div>

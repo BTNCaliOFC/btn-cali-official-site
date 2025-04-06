@@ -1,5 +1,3 @@
-
-
 import { Toaster } from "@/components/ui 2/toaster";
 import { Toaster as Sonner } from "@/components/ui 2/sonner";
 import { TooltipProvider } from "@/components/ui 2/tooltip";

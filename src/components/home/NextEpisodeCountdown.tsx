@@ -1,56 +1,78 @@
-import { CountdownTimer } from "../CountdownTimer";
+
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui 2/card';
+import { Clock } from 'lucide-react';
 
 const NextEpisodeCountdown = () => {
-  // Get current date and time
-  const now = new Date();
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
   
-  // Set target date to today at 8:30 PM
-  const targetDate = new Date();
-  targetDate.setHours(20, 30, 0, 0); // 8:30 PM
+  // Example date - set to next episode date
+  const targetDate = new Date("2025-04-15T20:00:00");
   
-  // Get current day of week (0 = Sunday, 6 = Saturday)
-  const currentDay = now.getDay();
-  
-  // Calculate days until next episode
-  let daysToAdd = 0;
-  
-  // If it's Saturday after 8:30 PM, set to Sunday
-  if (currentDay === 6 && now > targetDate) {
-    daysToAdd = 1; // Next episode is Sunday
-  } 
-  // If it's Sunday after 8:30 PM, set to next Saturday
-  else if (currentDay === 0 && now > targetDate) {
-    daysToAdd = 6; // Next episode is next Saturday
-  }
-  // If it's before Saturday, set to Saturday
-  else if (currentDay < 6) {
-    daysToAdd = 6 - currentDay; // Days until Saturday
-  }
-  // If it's Saturday before 8:30 PM, no days to add
-  
-  // Add days to get to next episode
-  targetDate.setDate(targetDate.getDate() + daysToAdd);
-  
-  // Calculate episode number
-  // Starting from Episode 18 for today
-  const baseEpisode = 18;
-  const weeksFromBase = Math.floor(daysToAdd / 7);
-  const episodeNumber = baseEpisode + weeksFromBase;
-  
-  // Determine episode day
-  const episodeDay = targetDate.getDay() === 0 ? "Sunday" : "Saturday";
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+      
+      if (difference <= 0) {
+        clearInterval(interval);
+        return;
+      }
+      
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      
+      setTimeLeft({ days, hours, minutes, seconds });
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
   
   return (
-    <div className="w-full max-w-2xl mx-auto mb-8">
-      <CountdownTimer 
-        targetDate={targetDate}
-        title={`Be The Next 9 Dreamers Episode ${episodeNumber} - ${episodeDay} at 8:30 PM`}
-      />
-      <div className="text-center mt-2 text-sm text-gray-600 dark:text-gray-400">
-        Watch on TV5 from 8:30 PM to 9:30 PM
+    <section className="py-12 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+      <div className="container mx-auto px-4">
+        <Card className="border-none shadow-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-2xl md:text-3xl font-bold flex items-center gap-2">
+              <Clock className="h-6 w-6" />
+              Next Episode Countdown
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-6 text-white/80">
+              Don't miss the next episode of Be The Next: 9 Dreamers featuring Cali!
+            </p>
+            
+            <div className="grid grid-cols-4 gap-2">
+              <div className="text-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl font-bold">{timeLeft.days}</div>
+                <div className="text-xs md:text-sm mt-1">Days</div>
+              </div>
+              <div className="text-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl font-bold">{timeLeft.hours}</div>
+                <div className="text-xs md:text-sm mt-1">Hours</div>
+              </div>
+              <div className="text-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl font-bold">{timeLeft.minutes}</div>
+                <div className="text-xs md:text-sm mt-1">Minutes</div>
+              </div>
+              <div className="text-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl font-bold">{timeLeft.seconds}</div>
+                <div className="text-xs md:text-sm mt-1">Seconds</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default NextEpisodeCountdown; 
+export default NextEpisodeCountdown;
