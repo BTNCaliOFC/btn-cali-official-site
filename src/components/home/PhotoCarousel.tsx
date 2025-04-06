@@ -15,7 +15,9 @@ const PhotoCarousel = () => {
         
         <div className="w-full max-w-4xl mx-auto">
           <div className="bg-white/5 backdrop-blur-sm shadow-lg border border-blue-100/20 rounded-xl p-4 md:p-6">
-            <ThreeDPhotoCarousel />
+            <div className="h-[600px] md:h-[700px]">
+              <ThreeDPhotoCarousel />
+            </div>
           </div>
         </div>
       </div>
