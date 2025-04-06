@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect, useRef } from "react";
 import { Calendar, Info, Award, Clock, Users, Star, Mail, Pause, Play, Music } from "lucide-react";
