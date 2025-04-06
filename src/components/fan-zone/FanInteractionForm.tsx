@@ -1,9 +1,9 @@
 
 import { useState } from 'react';
-import { Button } from '@/components/ui 2/button';
-import { Textarea } from '@/components/ui 2/textarea';
-import { Input } from '@/components/ui 2/input';
-import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 import { postFanComment } from '@/integrations/supabase/client';
 
 interface FanInteractionFormProps {

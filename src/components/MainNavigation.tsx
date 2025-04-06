@@ -1,8 +1,9 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Button } from "@/components/ui 2/button";
+import { Button } from "@/components/ui/button";
 
 export function MainNavigation() {
   const [isOpen, setIsOpen] = useState(false);

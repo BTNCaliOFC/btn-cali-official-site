@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui 2/dialog';
-import { Button } from '@/components/ui 2/button';
-import { Input } from '@/components/ui 2/input';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Bell, CheckCircle, X } from 'lucide-react';
 import { subscribeToNewsletter } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 
 const NewsletterModal = () => {
   const [open, setOpen] = useState(false);

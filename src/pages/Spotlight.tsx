@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Youtube, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -90,7 +89,9 @@ const Spotlight = () => {
                   </div>
                   <CardContent className="p-4">
                     <h3 className="font-medium text-sm line-clamp-2 mb-1">{video.title}</h3>
-                    {/* Removed references to video.views and video.date which don't exist in our data model */}
+                    <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                      <span>{video.views} • {video.date}</span>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -131,7 +132,9 @@ const Spotlight = () => {
                   </div>
                   <CardContent className="p-3">
                     <h3 className="font-medium text-xs line-clamp-2 mb-1">{video.title}</h3>
-                    {/* Removed reference to video.views which doesn't exist in our data model */}
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      <span>{video.views}</span>
+                    </div>
                   </CardContent>
                 </Card>
               ))}

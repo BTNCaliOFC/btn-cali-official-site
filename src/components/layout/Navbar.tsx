@@ -1,8 +1,10 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import ThemeToggle from '../../components/ui 2/ThemeToggle';
+import ThemeToggle from '../ui/ThemeToggle';
 
+// Set this to true when ready to make the Giveaways page live (match App.tsx)
 const GIVEAWAYS_LIVE = false;
 
 const Navbar = () => {

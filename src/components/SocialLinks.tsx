@@ -1,3 +1,4 @@
+
 import { 
   Facebook, 
   Instagram, 
@@ -5,8 +6,8 @@ import {
   Twitter,
   MessageCircle
 } from "lucide-react";
-import { Button } from "@/components/ui 2/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui 2/tooltip";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function SocialLinks() {
   const socialLinks = [

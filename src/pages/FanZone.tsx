@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui 2/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FanInteractionDisplay from '@/components/fan-zone/FanInteractionDisplay';
 import DailyDoseOfCali from '@/components/fan-zone/DailyDoseOfCali';
 import DreamKeepersLeaderboard from '@/components/fan-zone/DreamKeepersLeaderboard';

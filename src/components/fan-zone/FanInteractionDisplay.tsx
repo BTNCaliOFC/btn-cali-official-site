@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 import { getFanInteractions } from '@/integrations/supabase/client';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui 2/card';
-import { Button } from '@/components/ui 2/button';
-import { Avatar, AvatarFallback } from '@/components/ui 2/avatar';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { MessageSquare, Heart, RefreshCw } from 'lucide-react';
 import FanInteractionForm from './FanInteractionForm';
 
