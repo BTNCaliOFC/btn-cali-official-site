@@ -1,7 +1,7 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect, useRef } from "react";
 import { Calendar, Info, Award, Clock, Users, Star, Mail, Volume2, VolumeX } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Add this CSS at the top of your file or in a separate CSS module
 const styles = {
@@ -43,6 +43,7 @@ const styles = {
       box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
       border: 2px solid rgba(255, 255, 255, 0.2);
       overflow: hidden;
+      transform: translateZ(1px);
     }
     
     .envelope-front:after {
@@ -88,25 +89,6 @@ const styles = {
       .message {
         font-size: 0.875rem;
       }
-    }
-
-    .typing-animation {
-      display: inline-block;
-      white-space: pre-line;
-      overflow: hidden;
-      border-right: 2px solid #3b82f6;
-      animation: typing 4.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
-      max-width: 100%;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: #3b82f6 }
     }
 
     .audio-control {
@@ -243,6 +225,40 @@ const styles = {
       bottom: -30px;
       left: -30px;
     }
+    
+    .envelope-3d {
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    
+    .envelope-front {
+      position: relative;
+      z-index: 2;
+      transition: transform 0.5s ease;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .envelope-hover:hover .envelope-front {
+      transform: translateY(-10px);
+    }
+    
+    .envelope-shadow {
+      position: absolute;
+      width: 90%;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.1);
+      bottom: -10px;
+      left: 5%;
+      filter: blur(5px);
+      z-index: 1;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    
+    .envelope-hover:hover .envelope-shadow {
+      transform: scale(0.95);
+      opacity: 0.8;
+    }
   `,
 };
 
@@ -315,17 +331,21 @@ const days = [
 const SundayInbox = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
   const [showFullscreen, setShowFullscreen] = useState(false);
+  const [isEnvelopeHovered, setIsEnvelopeHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Create audio element
-    audioRef.current = new Audio();
-    audioRef.current.src = "https://mypublicfiles.s3.amazonaws.com/pv1UkRXo84U.mp3";
+    audioRef.current = new Audio("https://mypublicfiles.s3.amazonaws.com/pv1UkRXo84U.mp3");
     audioRef.current.volume = 0.4;
     audioRef.current.loop = true;
     audioRef.current.preload = "auto";
+
+    // Try to play audio when component mounts (will likely be blocked by browsers)
+    const playPromise = audioRef.current.play().catch(() => {
+      // Silence the autoplay error - we'll handle this with user interaction
+    });
 
     // Cleanup function
     return () => {
@@ -338,22 +358,19 @@ const SundayInbox = () => {
 
   const toggleEnvelope = () => {
     setIsFlipped(!isFlipped);
-    if (!isFlipped) {
-      setTimeout(() => setShowMessage(true), 300);
-      if (audioRef.current && !isPlaying) {
-        const playPromise = audioRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch(error => {
-              console.error("Audio playback error:", error);
-            });
-        }
+    
+    // Try to play music when user interacts with envelope
+    if (!isFlipped && audioRef.current && !isPlaying) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(error => {
+            console.error("Audio playback error:", error);
+          });
       }
-    } else {
-      setShowMessage(false);
     }
   };
 
@@ -432,29 +449,37 @@ const SundayInbox = () => {
           )}
         </button>
 
-        <div className={`envelope ${isFlipped ? 'flipped' : ''}`} onClick={toggleEnvelope}>
-          <div className="envelope-front">
-            <div className="envelope-decoration decoration-1"></div>
-            <div className="envelope-decoration decoration-2"></div>
-            <Mail className="h-16 w-16 text-white" />
-          </div>
-          <div className="envelope-back">
-            <div className="letter-content">
-              <div className={`message ${showMessage ? 'typing-animation' : ''}`}>
-                {letterMessage.split('\n\n')[0]}
-                {isFlipped && (
-                  <div className="mt-4 flex justify-center">
-                    <button 
-                      onClick={openFullscreen}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 transition-colors shadow-md flex items-center gap-1"
-                    >
-                      Read Full Letter
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m18 15-6-6-6 6"/>
-                      </svg>
-                    </button>
-                  </div>
-                )}
+        <div 
+          className={`envelope-hover envelope-3d ${isFlipped ? 'flipped' : ''}`} 
+          onMouseEnter={() => setIsEnvelopeHovered(true)}
+          onMouseLeave={() => setIsEnvelopeHovered(false)}
+        >
+          <div className="envelope-shadow"></div>
+          <div className={`envelope ${isFlipped ? 'flipped' : ''}`} onClick={toggleEnvelope}>
+            <div className="envelope-front">
+              <div className="envelope-decoration decoration-1"></div>
+              <div className="envelope-decoration decoration-2"></div>
+              <Mail className="h-16 w-16 text-white" />
+            </div>
+            <div className="envelope-back">
+              <div className="letter-content">
+                <div className="message">
+                  {letterMessage.split('\n\n')[0]}
+                  {isFlipped && (
+                    <div className="mt-4 flex justify-center">
+                      <Button
+                        onClick={openFullscreen}
+                        variant="outline"
+                        className="px-4 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 border-blue-200 transition-colors shadow-sm flex items-center gap-1"
+                      >
+                        Read Full Letter
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="m18 15-6-6-6 6"/>
+                        </svg>
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

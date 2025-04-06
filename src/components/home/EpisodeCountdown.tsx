@@ -1,5 +1,8 @@
+
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Twitter } from "lucide-react";
 
 const EpisodeCountdown = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -144,6 +147,20 @@ const EpisodeCountdown = () => {
     { label: 'Seconds', value: timeLeft.seconds }
   ];
   
+  const handleTweetClick = () => {
+    const tweetText = `Let's go, Cali! Fighting!
+
+Cali On Be The Next Episode ${episodeInfo.number}
+
+#BTN_CALI #BTNDreamer_Cali
+#BeTheNext_9Dreamers #CALI
+#BTN드리머_칼리 #칼리
+@BeTheNEXT_OFC`;
+
+    const encodedTweet = encodeURIComponent(tweetText);
+    window.open(`https://twitter.com/intent/tweet?text=${encodedTweet}`, '_blank');
+  };
+  
   return (
     <div className="w-full">
       <Card className="bg-white/10 backdrop-blur-sm border border-blue-200/30 shadow-lg">
@@ -164,6 +181,16 @@ const EpisodeCountdown = () => {
                 <p className="text-gray-600 dark:text-gray-400 text-xs mt-1">{unit.label}</p>
               </div>
             ))}
+          </div>
+          
+          <div className="mt-4 flex justify-center">
+            <Button 
+              onClick={handleTweetClick} 
+              className="flex items-center gap-2 bg-[#1DA1F2] hover:bg-[#1a91da] text-white"
+            >
+              <Twitter size={16} />
+              <span>Click to Tweet</span>
+            </Button>
           </div>
         </CardContent>
       </Card>
