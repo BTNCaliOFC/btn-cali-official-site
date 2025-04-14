@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Youtube, Send } from 'lucide-react';
 
@@ -72,7 +71,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Resources</h3>
             <ul className="space-y-2">
-              <li><a href="https://rebrand.ly/BTNCaliDreamKeepers" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">Join Voting Team</a></li>
+              <li><a href="https://dreamkeepers.btncaliofficial.com/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">DreamKeepers Hub</a></li>
               {GIVEAWAYS_LIVE && (
                 <li><Link to="/giveaways" className="text-gray-300 hover:text-white transition-colors">Giveaways</Link></li>
               )}

@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import EpisodeCountdown from './EpisodeCountdown';
 
@@ -17,9 +16,9 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Link to="/voting-team" className="btn-primary">
-              Join Voting Team
-            </Link>
+            <a href="https://dreamkeepers.btncaliofficial.com/" className="btn-primary">
+              DreamKeepers Hub
+            </a>
             <a href="https://www.facebook.com/share/g/14pqQ31ae5/" className="btn-secondary">
               Join Community
             </a>
