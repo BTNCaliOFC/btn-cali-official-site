@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FanInteractionDisplay from '@/components/fan-zone/FanInteractionDisplay';
@@ -20,20 +19,11 @@ const FanZone = () => {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          <Tabs defaultValue="forum" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-8">
-              <TabsTrigger value="forum">Fan Forum</TabsTrigger>
+          <Tabs defaultValue="stories" className="w-full">
+            <TabsList className="grid grid-cols-2 mb-8">
               <TabsTrigger value="stories">Fan Stories</TabsTrigger>
               <TabsTrigger value="fanart">Fan Art</TabsTrigger>
             </TabsList>
-            
-            <TabsContent value="forum" className="border rounded-lg p-6">
-              <FanInteractionDisplay 
-                type="forum"
-                title="Fan Forum"
-                description="Discuss anything related to Cali and his journey on Be The Next: 9 Dreamers."
-              />
-            </TabsContent>
             
             <TabsContent value="stories" className="border rounded-lg p-6">
               <FanInteractionDisplay 
