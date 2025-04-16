@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CheckCircle, Info, Phone, Award, FileText, Facebook, Mail, ExternalLink, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 const VotingTeam = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -14,6 +15,54 @@ const VotingTeam = () => {
   return (
     <div className="pt-24 pb-16 bg-background">
       <div className="container mx-auto px-4">
+        <motion.div 
+          className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl shadow-lg overflow-hidden mb-8 text-white p-6 border-2 border-yellow-300"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div 
+            className="flex flex-col items-center text-center"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.h2 
+              className="text-2xl font-bold mb-3"
+              animate={{ 
+                scale: [1, 1.05, 1],
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                repeatType: "reverse", 
+                duration: 2 
+              }}
+            >
+              🎉 Congratulations, Cali DreamKeepers! 💙
+            </motion.h2>
+            <motion.p 
+              className="text-xl font-semibold mb-2"
+              animate={{ 
+                color: ['#ffffff', '#ffef80', '#ffffff'],
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                duration: 3 
+              }}
+            >
+              We did it — Cali is #1 on the Global Fan Vote! 🌍🥇
+            </motion.p>
+            <motion.p 
+              className="text-base"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              Your passion, dedication, and sleepless nights made this possible. Let's keep the energy alive and continue to soar higher together with Cali! 🌟🙌
+            </motion.p>
+          </motion.div>
+        </motion.div>
+        
         <h1 className="text-4xl font-bold text-center mb-12">Voting Team</h1>
         
         <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden mb-12">
